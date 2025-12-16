@@ -28,7 +28,7 @@ shopt -s checkwinsize
 #shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -57,7 +57,8 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    #PS1='\[\e[38;5;210m\]\W\[\e[0m\] --> '
+    PS1='\[\e[36m\]\W\[\e[0m\] --> '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -79,18 +80,22 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -112,75 +117,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# set PATH so it includes user's private bin
-#PATH="$HOME/bin:$PATH"
+export EDITOR=vim
+
 PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-
-# set PS1
-#export PS1=" % "
-export PS1='\[\e]0;\w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\[\033[00m\] > '
-
-# git config --global core.editor "vim"
-export GIT_EDITOR=vim
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-# export filebrowser & terminal
-export FILEBROWSER=thunar
-export TERMINAL=xfce4-terminal
-
-# plan9
-export BROWSER='firefox'
-PLAN9=/home/diamond/plan9 export PLAN9
-PATH=$PATH:$PLAN9/bin export PATH
-export DISPLAY=:0
-
-# Plumb files instead of starting new editor.
-#EDITOR=E
-#unset FCEDIT VISUAL
-
-# Get rid of backspace characters in Unix man output.
-PAGER=nobs
-MANPAGER=nobs
-
-# Default font for Plan 9 programs.
-font=$PLAN9/font/lucsans/unicode.10.font
-
-# Equivalent variables for rc(1).
-home=$HOME
-prompt=" $ "
-
-# if you want to use rc instead of your shell within acme, uncomment the following line
-# shell=rc
-
-user=$USER
-
-export \
-    BROWSER\
-    PLAN9\
-    font\
-    home\
-    prompt\
-    user\
-    PAGER\
-    MANPAGER
-
-transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
-tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
-
-# Emulate an MS-DOS prompt in Linux shell.
-#function msdos_pwd
-#{
-#    local dir="`pwd`"
-#    dir=${dir/$HOME/'~'}
-#
-#    echo $dir | tr '/' '\\'
-#}
-
-#export PS1='C:`msdos_pwd`> '
-#echo "Microsoft(R) Windows 95"
-#echo "   (C)Copyright Microsoft Corp 1981-1996."
-#echo
-
-
 
