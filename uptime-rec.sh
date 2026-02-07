@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to the record file
-RECORD_FILE="/home/migara/.uptime_rec.txt"
+RECORD_FILE="/home/limaro-admin/.uptime_rec.txt"
 
 # Ensure the file exists
 touch "$RECORD_FILE"
