@@ -1,7 +1,7 @@
 alias cls='clear'
 alias la='ls -la'
 alias l='ls'
-alias whereami='echo $PWD'
+alias whereami='/home/migara/Documents/Scripts/location.sh'
 alias whatami='cat /etc/hostname'
 alias hwmon='watch -n .1 sensors'
 alias getip="curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'"
@@ -57,3 +57,4 @@ alias move-folders='~/Documents/Scripts/move-folders.sh'
 alias task-search='ps -ax | grep '
 alias vid_check='~/Documents/Scripts/vid_check.sh'
 alias spotify='~/Documents/Scripts/spotify/spotifyd --no-daemon'
+alias copyprogress='rsync -avP '
